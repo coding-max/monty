@@ -60,4 +60,10 @@ int read_file(FILE *fp);
 void (*get_function(char *op_function))(stack_t **, unsigned int);
 content_v clean_spaces(char *line);
 
+void monty_push(stack_t **top, unsigned int line_n);
+void monty_pall(stack_t **top, unsigned int line_n);
+void monty_pint(stack_t **top, unsigned int line_n);
+void monty_pop(stack_t **top, unsigned int line_n);
+void monty_swap(stack_t **top, unsigned int line_n);
+
 #endif
