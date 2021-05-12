@@ -4,6 +4,7 @@
 #define STACK_EMPTY INT_MIN
 
 #include <stdio.h>
+#include <stdlib.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -51,17 +52,18 @@ typedef struct content
 } content_v;
 
 
-extern struct stakit
+typedef struct stakit
 {
-    content_v data;
-    struct stack_s *top;
-};
-typedef struct stakit extern_var_t;
+        int int_value;
+        content_v data;
+        struct stack_s *top;
+} extern_var_t;
 
 
-int read_file(FILE *fp);
+void read_file(FILE *fp);
 void (*get_function(char *op_function))(stack_t **, unsigned int);
 content_v clean_spaces(char *line);
+size_t stack_len(const stack_t *h);
 
 void monty_push(stack_t **top, unsigned int line_n);
 void monty_pall(stack_t **top, unsigned int line_n);

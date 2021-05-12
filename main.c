@@ -6,7 +6,7 @@
  */
 int main(int argc, char *argv[])
 {
-	int exe_code;
+	extern_var_t ex;
 	FILE *fp;
 
 	/* arg error */
@@ -22,10 +22,9 @@ int main(int argc, char *argv[])
 		printf("Error: Can't open file %s", argv[1]);
 		exit(1);
 	}
-    
-	exe_code = read_file(fp);
+	read_file(fp);
 	fclose(fp);
-	return(exe_code);
+	return(0);
 }
 
 /**
@@ -33,38 +32,48 @@ int main(int argc, char *argv[])
  * @fp: idk.
  * Return: less find out god.
  */
-int read_file(FILE *fp)
+void read_file(FILE *fp)
 {
 	char *line = NULL;
 	size_t len = 0;
-	content_v data;
-		// data.op_function
-		// data.value
-    struct stakit p_stack;
-		// p_stack.top;
-		// p_stack.head;
-	int status, line_status;
+	int status, line_status, exe_code, i;
 	extern_var_t ex;
 
+	ex.top = NULL;
 	/* get new line from fp's buffer */
 	i = 0;
-	while (1)
+	while (getline(&line, &len, fp) != -1)
 	{
-		line_status = getline(&line, &len, fp);
-		if (line_status == -1)
-		{
-			/* EOF or reading error */ 
-			//TODO
-			break;
-		}
 		ex.data = clean_spaces(line);
+		ex.int_value = atoi(ex.data.value);
 		ex.data.line_n = i;
-		exe_code = get_function(ex.data.op_func)(*(ex.top), i);
-
+		get_function(ex.data.op_func)(ex.top, ex.data.line_n); /**/
+		free(line);
+		free(ex.data.op_func);
+		free(ex.data.value);
 		i++;
 	}
-	return (exe_code);
+
+	free_stack();
 }
+
+/*
+	ex.
+	+---------------+
+	| data.op_func	| -> char* 		(primera palabra del opcode)
+	| data.value	| -> char* 		(primer argumento del opcode)
+	| data.line_n	| -> int 		(numero del linea que se lee)
+	| int_value		| -> int		(primer argumento del opcode - atoi(data.value))
+	| top			| -> stack_t*	(puntero al ultimo nodo de la lista)
+	+---------------+
+*/
+
+/*
+*n is set 0 before the call, then
+       getline() will allocate a buffer for storing the line.  This
+       buffer should be freed by the user program even if getline()
+       failed.
+	   */
 
 
 /**
@@ -74,6 +83,7 @@ int read_file(FILE *fp)
  */
 void (*get_function(char *op_function))(stack_t **, unsigned int)
 {
+	extern ex;
 	instruction_t functions[] = {
 		{"push"	, monty_push},
 		{"pall"	, monty_pall},
@@ -85,9 +95,8 @@ void (*get_function(char *op_function))(stack_t **, unsigned int)
 	int i;
 
 	for (i = 0; functions[i].opcode; i++)
-		if (opcode == functions[i].opcode)
+		if (op_function == functions[i].opcode)
 			break;
 
-	return (functions[i].function)
-
+	return (functions[i].f);
 }

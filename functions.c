@@ -22,7 +22,8 @@ void monty_push(stack_t **ptr, unsigned int line_n)
 	new_node = malloc(sizeof(stack_t));
 	if (!new_node)
 	{
-		// error
+		printf("L<line_number>: usage: push integer\n", line_n);
+		exit(EXIT_FAILURE);
 	}
 	new_node->n = data.value;
 
@@ -115,6 +116,20 @@ void monty_pint(stack_t **top, unsigned int line_n)
  */
 void monty_pop(stack_t **top, unsigned int line_n)
 {
+	stack_t *popped = top;
+
+    if (!(*top))
+	{
+		printf("L%d: can't pint, stack empty\n", line_n);
+		exit(EXIT_FAILURE);
+	}
+	if (popped->prev != NULL)
+	{
+		popped->prev->next = NULL;
+		top = popped->prev;
+	}
+
+    free(popped);
 
 }
 
