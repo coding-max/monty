@@ -130,15 +130,35 @@ void monty_pop(stack_t **top, unsigned int line_n)
 	}
 
     free(popped);
-
 }
 
 /**
  * monty_swap - swaps the top two elements of the stack.
- * @top: idk.
- * @line_n: idk.
+ * @top: pointer to the top of the stack.
+ * @line_n: lines of the file.
  */
 void monty_swap(stack_t **top, unsigned int line_n)
 {
+	stack_t *last = *top;
+
+	if (!(*top))
+	{
+		printf("L%d: can't pint, stack empty\n", line_n);
+		exit(EXIT_FAILURE);
+	}
+	if (last != NULL)
+	{
+		/*Assign the next position pointer to the previous node on the stack */
+		last->next = last->prev;
+		/*Assign the previous node next position pointer to NULL, it will be the last of the stack */
+		last->prev->next = NULL;
+		/*Assign the previous node prev position pointer to the actual last node*/
+		last->prev->prev = last;
+		/*Assign the last node prev position pointer to the previous position of previous node*/
+		last->prev = last->prev->prev;
+
+		/*Now, make the top pointer point to the last position of the stack*/
+		top = last->prev->prev;
+	}
 
 }
