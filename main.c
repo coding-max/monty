@@ -44,7 +44,7 @@ int read_file(FILE *fp)
 		// p_stack.top;
 		// p_stack.head;
 	int status, line_status;
-
+	extern_var_t ex;
 
 	/* get new line from fp's buffer */
 	i = 0;
@@ -57,9 +57,9 @@ int read_file(FILE *fp)
 			//TODO
 			break;
 		}
-		data = clean_spaces(line);
-		data.line_n = i;
-		exe_code = get_function(data.op_function)(p_stack.top, i);
+		ex.data = clean_spaces(line);
+		ex.data.line_n = i;
+		exe_code = get_function(ex.data.op_func)(*(ex.top), i);
 
 		i++;
 	}

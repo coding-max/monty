@@ -1,5 +1,7 @@
 #ifndef MONTY
 #define MONTY
+#define EMPTY (-1)
+#define STACK_EMPTY INT_MIN
 
 #include <stdio.h>
 
@@ -51,9 +53,10 @@ typedef struct content
 
 extern struct stakit
 {
-    stack_t **top;
-    stack_t **head;
-} stack_pointers;
+    content_v data;
+    struct stack_s *top;
+};
+typedef struct stakit extern_var_t;
 
 
 int read_file(FILE *fp);

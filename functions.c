@@ -42,6 +42,37 @@ void monty_push(stack_t **ptr, unsigned int line_n)
 	}
 }
 
+/*
+size_t monty_push(stack_t **head, unsigned int line_number)
+{
+    stack_t *new;
+    extern_var_t intnum;
+
+	new = malloc(sizeof(stack_t));
+	if (new == NULL)
+		return (NULL);
+
+	if (*head != NULL)
+	{
+		new->n = data.value.intnum
+		new->next = *head;
+		new->prev = NULL;
+		(*head)->prev = new;
+		*head = new;
+	}
+	else
+	{
+		new->n = n;
+		new->next = NULL;
+		new->prev = NULL;
+		*head = new;
+	}
+
+	return (new);
+}
+*/
+
+
 /**
  * monty_pall - prints all the values on the stack, starting from the top of the stack.
  * @top: idk.
