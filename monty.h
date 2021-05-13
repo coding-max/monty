@@ -1,10 +1,9 @@
 #ifndef MONTY
 #define MONTY
-#define EMPTY (-1)
-#define STACK_EMPTY INT_MIN
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -51,24 +50,23 @@ typedef struct content
         int line_n;
 } content_v;
 
-
 typedef struct stakit
 {
         int int_value;
         content_v data;
-        struct stack_s *top;
 } extern_var_t;
+extern extern_var_t ex;
 
-
+int main(int argc, char *argv[]);
 void read_file(FILE *fp);
 void (*get_function(char *op_function))(stack_t **, unsigned int);
 content_v clean_spaces(char *line);
-size_t stack_len(const stack_t *h);
 
 void monty_push(stack_t **top, unsigned int line_n);
 void monty_pall(stack_t **top, unsigned int line_n);
 void monty_pint(stack_t **top, unsigned int line_n);
 void monty_pop(stack_t **top, unsigned int line_n);
+/*
 void monty_swap(stack_t **top, unsigned int line_n);
-
+*/
 #endif

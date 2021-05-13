@@ -6,7 +6,6 @@
  */
 int main(int argc, char *argv[])
 {
-	extern_var_t ex;
 	FILE *fp;
 
 	/* arg error */
@@ -27,6 +26,16 @@ int main(int argc, char *argv[])
 	return(0);
 }
 
+/*
+	ex.
+	+---------------+
+	| data.op_func	| -> char* 		(primera palabra del opcode)
+	| data.value	| -> char* 		(primer argumento del opcode)
+	| data.line_n	| -> int 		(numero del linea que se lee)
+	| int_value		| -> int		(primer argumento del opcode - atoi(data.value))
+	+---------------+
+*/
+
 /**
  * read_file - honestly, idk.
  * @fp: idk.
@@ -38,8 +47,8 @@ void read_file(FILE *fp)
 	size_t len = 0;
 	int status, line_status, exe_code, i;
 	extern_var_t ex;
+	stack_t *top_ptr = NULL;
 
-	ex.top = NULL;
 	/* get new line from fp's buffer */
 	i = 0;
 	while (getline(&line, &len, fp) != -1)
@@ -47,34 +56,14 @@ void read_file(FILE *fp)
 		ex.data = clean_spaces(line);
 		ex.int_value = atoi(ex.data.value);
 		ex.data.line_n = i;
-		get_function(ex.data.op_func)(ex.top, ex.data.line_n); /**/
+		get_function(ex.data.op_func)(&top_ptr, ex.data.line_n);
 		free(line);
 		free(ex.data.op_func);
 		free(ex.data.value);
 		i++;
 	}
-
-	free_stack();
+	// free stack
 }
-
-/*
-	ex.
-	+---------------+
-	| data.op_func	| -> char* 		(primera palabra del opcode)
-	| data.value	| -> char* 		(primer argumento del opcode)
-	| data.line_n	| -> int 		(numero del linea que se lee)
-	| int_value		| -> int		(primer argumento del opcode - atoi(data.value))
-	| top			| -> stack_t*	(puntero al ultimo nodo de la lista)
-	+---------------+
-*/
-
-/*
-*n is set 0 before the call, then
-       getline() will allocate a buffer for storing the line.  This
-       buffer should be freed by the user program even if getline()
-       failed.
-	   */
-
 
 /**
  * get_function - honestly, idk.
@@ -83,13 +72,14 @@ void read_file(FILE *fp)
  */
 void (*get_function(char *op_function))(stack_t **, unsigned int)
 {
-	extern ex;
 	instruction_t functions[] = {
 		{"push"	, monty_push},
 		{"pall"	, monty_pall},
 		{"pint"	, monty_pint},
 		{"pop"	, monty_pop},
+		/*
 		{"swap"	, monty_swap},
+		*/
 		{NULL, NULL}
 	};
 	int i;

@@ -9,7 +9,7 @@ int counting_letters(char *line)
         if (line[i] >= 'a' && line[i] <= 'z')
         {
             c_let++;
-            if (c_let > 0 && (line[i+1] = ' ' || line[i+1] = '\0'))
+            if (c_let > 0 && (line[i+1] == ' ' || line[i+1] == '\0'))
                 break;
         }
     }
@@ -25,14 +25,14 @@ int counting_numbers(char *line)
         if (line[i] >= '0' && line[i] <= '9')
         {
             c_num++;
-            if (c_num > 0 && (line[i + 1] = ' ' || line[i+1] = '\0'))
+            if (c_num > 0 && (line[i + 1] == ' ' || line[i+1] == '\0'))
                 break;
         }
     }
     return (c_num);
 }
 
-char get_op(char *line)
+char *get_op(char *line)
 {
     char *clean_line;
     int i, j;
@@ -48,7 +48,7 @@ char get_op(char *line)
     return (clean_line);
 }
 
-char get_value(char *line)
+char *get_value(char *line)
 {
     char *clean_num;
     int i, j;
@@ -65,6 +65,7 @@ char get_value(char *line)
 
 content_v clean_spaces(char *line)
 {
+    char *clean_line, *clean_num;
     int count_letters, count_numbers;
 
     content_v data;
@@ -77,7 +78,7 @@ content_v clean_spaces(char *line)
     {
         clean_line = malloc(sizeof(count_letters));
         if (!clean_line)
-            return (NULL);
+            /* mallo error - return (NULL); */
         data.op_func = get_op(line);
     }
     count_numbers = counting_numbers(line);
@@ -87,7 +88,7 @@ content_v clean_spaces(char *line)
     {
         clean_num = malloc(sizeof(count_numbers));
         if (!clean_num)
-            return (NULL);
+            /* mallo error - return (NULL); */
         data.value = get_value(line);
     }
     return (data);
