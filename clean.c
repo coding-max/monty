@@ -38,10 +38,14 @@ content_v clean_spaces(char *line)
 	{
 		if (strcmp(token,""))
 		{
+			/*
+			printf("-------> token to analyze: %s\n", token);
+			*/
 			for (i = 0; i < strlen(token); i ++)
 			{
 				if (!(token[i] >= '0' && token[i] <= '9'))
-					break;
+					if (token[0] != '-')
+						break;
 			}
 			if (i == strlen(token))
 				data.value = token;
