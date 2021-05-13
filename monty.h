@@ -71,6 +71,7 @@ void monty_pint(stack_t **top, unsigned int line_n);
 void monty_pop(stack_t **top, unsigned int line_n);
 void monty_swap(stack_t **top, unsigned int line_n);
 void monty_add(stack_t **top, unsigned int line_n);
+void monty_sub(stack_t **top_ptr, unsigned int line_n);
 void monty_mul(stack_t **top_ptr, unsigned int line_n);
 void monty_nop(stack_t **top_ptr, unsigned int line_n);
 void monty_div(stack_t **top_ptr, unsigned int line_n);

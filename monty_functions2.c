@@ -8,7 +8,6 @@
 void monty_add(stack_t **top_ptr, unsigned int line_n)
 {
 	stack_t *last = *top_ptr;
-	int sum;
 
 	if (!last)
 	{
@@ -18,11 +17,9 @@ void monty_add(stack_t **top_ptr, unsigned int line_n)
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
 	}
-	sum = last->prev->n + last->n;
+	last->prev->n += last->n;
 
 	monty_pop(top_ptr, line_n);
-
-	last->n = sum;
 }
 
 /**
@@ -30,6 +27,22 @@ void monty_add(stack_t **top_ptr, unsigned int line_n)
  * @top_ptr: idk.
  * @line_n: idk.
  */
+ void monty_sub(stack_t **top_ptr, unsigned int line_n)
+{
+	stack_t *last = *top_ptr;
+
+	if (!last)
+	{
+		fprintf(stderr, "L%u: can't add, stack empty\n", line_n);
+		free(ex.line);
+		fclose(ex.fp);
+		free_stack(*top_ptr);
+		exit(EXIT_FAILURE);
+	}
+	last->prev->n -= last->n;
+
+	monty_pop(top_ptr, line_n);
+}
 
 /**
  * monty_div - divides the second top element of the stack by the top element of the stack.
@@ -39,7 +52,6 @@ void monty_add(stack_t **top_ptr, unsigned int line_n)
 void monty_div(stack_t **top_ptr, unsigned int line_n)
 {
 	stack_t *last = *top_ptr;
-	int div;
 
 	if (!last)
 	{
@@ -50,7 +62,7 @@ void monty_div(stack_t **top_ptr, unsigned int line_n)
 		exit(EXIT_FAILURE);
 	}
 	if (last->n != 0)
-		div = last->prev->n / last->n;
+		last->prev->n /= last->n;
 	else
 	{
 		fprintf(stderr,"L%u: division by zero\n", line_n);
@@ -59,9 +71,7 @@ void monty_div(stack_t **top_ptr, unsigned int line_n)
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
 	}
-
 	monty_pop(top_ptr, line_n);
-	last->n = div;
 }
 
 /**
@@ -72,7 +82,6 @@ void monty_div(stack_t **top_ptr, unsigned int line_n)
 void monty_mul(stack_t **top_ptr, unsigned int line_n)
 {
 	stack_t *last = *top_ptr;
-	int mul;
 
 	if (!last)
 	{
@@ -82,10 +91,9 @@ void monty_mul(stack_t **top_ptr, unsigned int line_n)
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
 	}
-	mul = last->prev->n * last->n;
+	last->prev->n *= last->n;
 
 	monty_pop(top_ptr, line_n);
-	last->n = mul;
 }
 
 /**
@@ -96,7 +104,6 @@ void monty_mul(stack_t **top_ptr, unsigned int line_n)
 void monty_mod(stack_t **top_ptr, unsigned int line_n)
 {
 	stack_t *last = *top_ptr;
-	int mod;
 
 	if (!last)
 	{
@@ -107,7 +114,7 @@ void monty_mod(stack_t **top_ptr, unsigned int line_n)
 		exit(EXIT_FAILURE);
 	}
 	if (last->n != 0)
-		mod = last->prev->n % last->n;
+		last->prev->n %= last->n;
 	else
 	{
 		fprintf(stderr,"L%u: division by zero\n", line_n);
@@ -118,5 +125,4 @@ void monty_mod(stack_t **top_ptr, unsigned int line_n)
 	}
 
 	monty_pop(top_ptr, line_n);
-	last->n = mod;
 }

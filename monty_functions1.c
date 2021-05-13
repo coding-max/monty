@@ -130,7 +130,7 @@ void monty_swap(stack_t **top_ptr, unsigned int line_n)
 		exit(EXIT_FAILURE);
 	}
 	
-	aux_int = last->n;
-	last->prev->n = aux_int;
-	last->n = last->prev->n;
+	aux_int = last->prev->n;
+	last->prev->n = last->n;
+	last->n = aux_int;
 }

@@ -25,23 +25,12 @@ int main(int argc, char *argv[])
 	}
 	read_file(fp);
 	fclose(fp);
-	return(0);
+	return (0);
 }
-
-/*
-	ex.
-	+---------------+
-	| data.op_func	| -> char* 		(primera palabra del opcode)
-	| data.value	| -> char* 		(primer argumento del opcode)
-	| data.line_n	| -> int 		(numero del linea que se lee)
-	| int_value		| -> int		(primer argumento del opcode - atoi(data.value))
-	+---------------+
-*/
 
 /**
  * read_file - honestly, idk.
  * @fp: idk.
- * Return: less find out god.
  */
 void read_file(FILE *fp)
 {
