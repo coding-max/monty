@@ -47,7 +47,7 @@ void read_file(FILE *fp)
 {
 	char *line = NULL;
 	size_t len = 0;
-	int status, line_status, exe_code, i;
+	int i;
 	stack_t *top_ptr = NULL;
 	ex.fp = fp;
 
@@ -107,7 +107,6 @@ void free_stack(stack_t *top_ptr)
 	stack_t *prevNode;
 
 	last = top_ptr;
-	printf("%p: \n", last);
 
 	if (last)
 	{

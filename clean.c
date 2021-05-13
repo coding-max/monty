@@ -2,7 +2,6 @@
 
 content_v clean_spaces(char *line)
 {
-    char *line_wo_enter;
     // char *op_func, *value;
     content_v data;
 

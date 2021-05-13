@@ -53,7 +53,8 @@ void monty_pall(stack_t **top_ptr, unsigned int line_n)
 {
 	/* temporal, esto en realidad viene en la variable externa */
 	stack_t *aux = *top_ptr;
-
+	
+	(void)line_n;
 	while (aux)
 	{
 		printf("%d\n", aux->n);
@@ -109,7 +110,7 @@ void monty_pop(stack_t **top_ptr, unsigned int line_n)
 void monty_swap(stack_t **top_ptr, unsigned int line_n)
 {
 	stack_t *last = *top_ptr;
-	int aux_int;
+	int aux_int = 0;
 
 	if (!last)
 	{
@@ -120,7 +121,7 @@ void monty_swap(stack_t **top_ptr, unsigned int line_n)
 	}
 	
 	aux_int = last->n;
-	last->prev->n = last->n;
+	last->prev->n = aux_int;
 	last->n = last->prev->n;
 }
 
@@ -139,6 +140,8 @@ void monty_add(stack_t **top_ptr, unsigned int line_n)
 	sum = last->prev->n + last->n;
 
 	monty_pop(top_ptr, line_n);
+
+	last->n = sum;
 }
 
 
@@ -158,6 +161,7 @@ void monty_mul(stack_t **top_ptr, unsigned int line_n)
 	mul = last->prev->n * last->n;
 
 	monty_pop(top_ptr, line_n);
+	last->n = mul;
 }
 
 void monty_nop(stack_t **top_ptr, unsigned int line_n)
@@ -191,6 +195,7 @@ void monty_div(stack_t **top_ptr, unsigned int line_n)
 	}
 
 	monty_pop(top_ptr, line_n);
+	last->n = div;
 }
 
 void monty_mod(stack_t **top_ptr, unsigned int line_n)
@@ -216,4 +221,5 @@ void monty_mod(stack_t **top_ptr, unsigned int line_n)
 	}
 
 	monty_pop(top_ptr, line_n);
+	last->n = mod;
 }
