@@ -49,7 +49,7 @@ void read_file(FILE *fp)
 	size_t len = 0;
 	int status, line_status, exe_code, i;
 	stack_t *top_ptr = NULL;
-	ex.data.value = NULL;
+
 	/* get new line from fp's buffer */
 	i = 0;
 	printf("----------------------\n");
@@ -70,8 +70,8 @@ void read_file(FILE *fp)
 		}
 		ex.data.line_n = i;
 		printf("--> ex.data.line_n = %d\n", ex.data.line_n);
-		/*
 		get_function(ex.data.op_func)(&top_ptr, ex.data.line_n);
+		/*
 		free(line);
 		free(ex.data.op_func);
 		free(ex.data.value);
