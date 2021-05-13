@@ -60,15 +60,8 @@ void read_file(FILE *fp)
 		{
 			ex.int_value = atoi(ex.data.value);
 		}
-		else
-		{
-			//printf("--> ex.int_value = empty\n");
-		}
 		ex.data.line_n = i;
 		execute_function(&top_ptr);
-		//free(line);
-		//free(ex.data.op_func);
-		//free(ex.data.value);
 		i++;
 	}
 	free(line);

@@ -77,7 +77,5 @@ void monty_mod(stack_t **top_ptr, unsigned int line_n);
 
 
 void free_stack(stack_t *top_ptr);
-/*
-void monty_swap(stack_t **top, unsigned int line_n);
-*/
+
 #endif
