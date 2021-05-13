@@ -56,7 +56,7 @@ void read_file(FILE *fp)
 	while (getline(&line, &len, fp) != -1)
 	{
 		ex.data = clean_spaces(line);
-		if (ex.data.value)
+		if (ex.data.value != NULL)
 		{
 			ex.int_value = atoi(ex.data.value);
 		}
@@ -68,7 +68,6 @@ void read_file(FILE *fp)
 	free_stack(top_ptr);
 }
 
-
 /**
  * get_function - honestly, idk.
  * @op_function: idk.
@@ -79,7 +78,7 @@ void execute_function(stack_t **stack)
 	instruction_t functions[] = {
 		{"push"	, monty_push}, {"pall"	, monty_pall}, {"pint"	, monty_pint},
 		{"pop"	, monty_pop}, {"swap"	, monty_swap}, {"add", monty_add},
-		{"nop", monty_nop}, {"div",monty_div},
+		{"nop", monty_nop}, {"div",monty_div}, {NULL, NULL}
 	};
 	int i;
 
@@ -90,6 +89,13 @@ void execute_function(stack_t **stack)
 			functions[i].f(stack, ex.data.line_n);
 			break;
 		}
+	}
+	if (!functions[i].opcode)
+	{
+		fprintf(stderr, "L%d: unknown instruction %s\n", ex.data.line_n, ex.data.op_func);
+		fclose(ex.fp); 
+		free_stack(*stack);
+		exit(EXIT_FAILURE);
 	}
 }
 
