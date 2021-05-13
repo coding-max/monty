@@ -8,12 +8,23 @@
 void monty_push(stack_t **top_ptr, unsigned int line_n)
 {
 	/* temporal, esto en realidad viene en la variable externa */
-	stack_t *new_node, *top;
+	stack_t *new_node, *top = *top_ptr;
 	
+	if (!ex.data.value)
+	{
+		fprintf(stderr, "L%u: usage: push integer\n", line_n);
+		fclose(ex.fp);
+		free_stack(*top_ptr);
+		exit(EXIT_FAILURE);
+	}
+
 	new_node = malloc(sizeof(stack_t));
 	if (!new_node)
 	{
-		printf("L%u: usage: push integer\n", line_n);
+		/*free function*/ //todo
+		fprintf(stderr, "Error: malloc failed\n");
+		fclose(ex.fp); 
+		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
 	}
 	new_node->n = ex.int_value;
@@ -22,14 +33,14 @@ void monty_push(stack_t **top_ptr, unsigned int line_n)
 	{
 		new_node->next = NULL;
 		new_node->prev = NULL;
-		top = new_node;
+		*top_ptr = new_node;
 	}
 	else 
 	{
 		new_node->next = NULL;
 		new_node->prev = top;
 		top->next = new_node;
-		top = new_node;
+		*top_ptr = new_node;
 	}
 }
 
@@ -38,17 +49,15 @@ void monty_push(stack_t **top_ptr, unsigned int line_n)
  * @top: idk.
  * @line_n: idk.
  */
-void monty_pall(stack_t **top, unsigned int line_n)
+void monty_pall(stack_t **top_ptr, unsigned int line_n)
 {
 	/* temporal, esto en realidad viene en la variable externa */
-	stack_t *head;
-	stack_t *aux;
+	stack_t *aux = *top_ptr;
 
-	aux = head;
 	while (aux)
 	{
 		printf("%d\n", aux->n);
-		aux = aux->next;
+		aux = aux->prev;
 	}
 }
 
@@ -57,15 +66,17 @@ void monty_pall(stack_t **top, unsigned int line_n)
  * @top: idk.
  * @line_n: idk.
  */
-void monty_pint(stack_t **top, unsigned int line_n)
+void monty_pint(stack_t **top_ptr, unsigned int line_n)
 {
-	if (!(*top))
+	if (!(*top_ptr))
 	{
-		printf("L%d: can't pint, stack empty\n", line_n);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_n);
+		fclose(ex.fp);
+		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
 	}
 	else
-		printf("%d\n", (*top)->n);
+		printf("%d\n", (*top_ptr)->n);
 }
 
 /**
@@ -73,53 +84,137 @@ void monty_pint(stack_t **top, unsigned int line_n)
  * @top: idk.
  * @line_n: idk.
  */
-void monty_pop(stack_t **top, unsigned int line_n)
+void monty_pop(stack_t **top_ptr, unsigned int line_n)
 {
-	stack_t *popped = *top;
+	stack_t *popped = *top_ptr;
 
-    if (!(*top))
+    if (!popped)
 	{
-		printf("L%d: can't pint, stack empty\n", line_n);
+		fprintf(stderr, "L%u: can't pop, stack empty\n", line_n);
+		fclose(ex.fp);
+		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
 	}
 	if (popped->prev != NULL)
 	{
 		popped->prev->next = NULL;
-		*top = popped->prev;
+		*top_ptr = popped->prev;
 	}
+	else
+		*top_ptr = NULL;
 
     free(popped);
 }
 
-/**
- * monty_swap - swaps the top two elements of the stack.
- * @top: pointer to the top of the stack.
- * @line_n: lines of the file.
-
-void monty_swap(stack_t **top, unsigned int line_n)
+void monty_swap(stack_t **top_ptr, unsigned int line_n)
 {
-	stack_t *last = *top;
+	stack_t *last = *top_ptr;
+	int aux_int;
 
-	if (!(*top))
+	if (!last)
 	{
-		printf("L%d: can't pint, stack empty\n", line_n);
+		fprintf(stderr, "L%u: can't swap, stack empty\n", line_n);
+		fclose(ex.fp);
+		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
 	}
-	if (last != NULL)
-	{
-		/*Assign the next position pointer to the previous node on the stack */
-		/*last->next = last->prev;*/
-		/*Assign the previous node next position pointer to NULL, it will be the last of the stack */
-		/*last->prev->next = NULL;*/
-		/*Assign the previous node prev position pointer to the actual last node*/
-		/*last->prev->prev = last;*/
-		/*Assign the last node prev position pointer to the previous position of previous node*/
-		/*last->prev = last->prev->prev;*/
+	
+	aux_int = last->n;
+	last->prev->n = last->n;
+	last->n = last->prev->n;
+}
 
-		/*Now, make the top pointer point to the last position of the stack*/
-		/*top = last->prev->prev;*/
-		/*
+void monty_add(stack_t **top_ptr, unsigned int line_n)
+{
+	stack_t *last = *top_ptr;
+	int sum;
+
+	if (!last)
+	{
+		fprintf(stderr, "L%u: can't add, stack empty\n", line_n);
+		fclose(ex.fp);
+		free_stack(*top_ptr);
+		exit(EXIT_FAILURE);
+	}
+	sum = last->prev->n + last->n;
+
+	monty_pop(top_ptr, line_n);
+}
+
+
+
+void monty_mul(stack_t **top_ptr, unsigned int line_n)
+{
+	stack_t *last = *top_ptr;
+	int mul;
+
+	if (!last)
+	{
+		fprintf(stderr, "L%u: can't mul, stack empty\n", line_n);
+		fclose(ex.fp);
+		free_stack(*top_ptr);
+		exit(EXIT_FAILURE);
+	}
+	mul = last->prev->n * last->n;
+
+	monty_pop(top_ptr, line_n);
+}
+
+void monty_nop(stack_t **top_ptr, unsigned int line_n)
+{
+	*top_ptr = *top_ptr;
+	line_n = line_n;
+}
+
+
+
+void monty_div(stack_t **top_ptr, unsigned int line_n)
+{
+	stack_t *last = *top_ptr;
+	int div;
+
+	if (!last)
+	{
+		fprintf(stderr,"L%u: can't div, stack empty\n", line_n);
+		fclose(ex.fp);
+		free_stack(*top_ptr);
+		exit(EXIT_FAILURE);
+	}
+	if (last->n != 0)
+		div = last->prev->n / last->n;
+	else
+	{
+		fprintf(stderr,"L%u: division by zero\n", line_n);
+		fclose(ex.fp);
+		free_stack(*top_ptr);
+		exit(EXIT_FAILURE);
 	}
 
+	monty_pop(top_ptr, line_n);
 }
-*/
+
+void monty_mod(stack_t **top_ptr, unsigned int line_n)
+{
+	stack_t *last = *top_ptr;
+	int mod;
+
+	if (!last)
+	{
+		printf("L%u: can't mod, stack empty\n", line_n);
+		fclose(ex.fp);
+		free_stack(*top_ptr);
+		exit(EXIT_FAILURE);
+	}
+	if (last->n != 0)
+		mod = last->prev->n % last->n;
+	else
+	{
+		fprintf(stderr,"L%u: division by zero\n", line_n);
+		fclose(ex.fp);
+		free_stack(*top_ptr);
+		exit(EXIT_FAILURE);
+	}
+
+	monty_pop(top_ptr, line_n);
+}
+

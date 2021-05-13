@@ -59,9 +59,9 @@ void monty_pall(stack_t **top, unsigned int line_n)
  */
 void monty_pint(stack_t **top, unsigned int line_n)
 {
-	if (!(*top))
+	if (!top)
 	{
-		printf("L%d: can't pint, stack empty\n", line_n);
+		printf("L%u: can't pint, stack empty\n", line_n);
 		exit(EXIT_FAILURE);
 	}
 	else
@@ -77,9 +77,9 @@ void monty_pop(stack_t **top, unsigned int line_n)
 {
 	stack_t *popped = *top;
 
-    if (!(*top))
+    if (!top)
 	{
-		printf("L%d: can't pint, stack empty\n", line_n);
+		printf("L%u: can't pint, stack empty\n", line_n);
 		exit(EXIT_FAILURE);
 	}
 	if (popped->prev != NULL)
@@ -95,31 +95,88 @@ void monty_pop(stack_t **top, unsigned int line_n)
  * monty_swap - swaps the top two elements of the stack.
  * @top: pointer to the top of the stack.
  * @line_n: lines of the file.
+ */
 
 void monty_swap(stack_t **top, unsigned int line_n)
 {
 	stack_t *last = *top;
+	int aux_int =
 
-	if (!(*top))
+	if (!top)
 	{
-		printf("L%d: can't pint, stack empty\n", line_n);
+		printf("L%u: can't pint, stack empty\n", line_n);
 		exit(EXIT_FAILURE);
 	}
 	if (last != NULL)
 	{
-		/*Assign the next position pointer to the previous node on the stack */
-		/*last->next = last->prev;*/
-		/*Assign the previous node next position pointer to NULL, it will be the last of the stack */
-		/*last->prev->next = NULL;*/
-		/*Assign the previous node prev position pointer to the actual last node*/
-		/*last->prev->prev = last;*/
-		/*Assign the last node prev position pointer to the previous position of previous node*/
-		/*last->prev = last->prev->prev;*/
-
-		/*Now, make the top pointer point to the last position of the stack*/
-		/*top = last->prev->prev;*/
-		/*
+		aux_int = last->n;
+		last->prev->n = last->n;
+		last->n = last->prev->n;
 	}
-
 }
-*/
+
+void monty_add(stack_t **top, unsigned int line_n)
+{
+	stack_t *last = *top;
+	int sum;
+
+	if (!top)
+	{
+		printf("L%u: can't pint, stack empty\n", line_n);
+		exit(EXIT_FAILURE);
+	}
+	sum = last->prev->n + last->n;
+
+	monty_pop(last, line_n);
+}
+
+void monty_mul(stack_t **top, unsigned int line_n)
+{
+	stack_t *last = *top;
+	int mul;
+
+	if (!top)
+	{
+		printf("L%u: can't pint, stack empty\n", line_n);
+		exit(EXIT_FAILURE);
+	}
+	mul = last->prev->n * last->n;
+
+	monty_pop(last, line_n);
+}
+
+void monty_nop(stack_t **top, unsigned int line_n)
+{
+	*top = *top;
+	line_n = line_n;
+}
+
+void monty_div(stack_t **top, unsigned int line_n)
+{
+	stack_t *last = *top;
+	int div;
+
+	if (!top)
+	{
+		printf("L%u: can't pint, stack empty\n", line_n);
+		exit(EXIT_FAILURE);
+	}
+	div = last->prev->n / last->n;
+
+	monty_pop(last, line_n);
+}
+
+void monty_mod(stack_t **top, unsigned int line_n)
+{
+	stack_t *last = *top;
+	int div;
+
+	if (!top)
+	{
+		printf("L%u: can't pint, stack empty\n", line_n);
+		exit(EXIT_FAILURE);
+	}
+	div = last->prev->n % last->n;
+
+	monty_pop(last, line_n);
+}
