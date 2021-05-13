@@ -2,11 +2,9 @@
 
 content_v clean_spaces(char *line)
 {
-    // char *op_func, *value;
     content_v data;
 
     /* entrada nunca vacia - contien al menos el carcater \n */
-    //printf("--> line = %s\n", line);
     /* puede ser vacio ("") */
     data.op_func = strtok(line, " \n\t");
     //printf("--> data.op_func = %s\n", data.op_func);

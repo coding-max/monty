@@ -53,7 +53,6 @@ void read_file(FILE *fp)
 
 	/* get new line from fp's buffer */
 	i = 0;
-	//printf("----------------------\n");
 	while (getline(&line, &len, fp) != -1)
 	{
 		ex.data = clean_spaces(line);

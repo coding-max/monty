@@ -21,7 +21,7 @@ void monty_push(stack_t **top_ptr, unsigned int line_n)
 	new_node = malloc(sizeof(stack_t));
 	if (!new_node)
 	{
-		/*free function*/ //todo
+		/*free function*/
 		fprintf(stderr, "Error: malloc failed\n");
 		fclose(ex.fp); 
 		free_stack(*top_ptr);
