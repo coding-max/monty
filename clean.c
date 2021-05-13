@@ -6,7 +6,9 @@ content_v clean_spaces(char *line)
 	char *token;
 	size_t i;
 
+	/*
 	printf("--> entrada: %s\n", line);
+	*/
 	token = strtok(line, " \n\t");
 	while (token != NULL)
 	{
@@ -21,13 +23,17 @@ content_v clean_spaces(char *line)
 	{
 		data.op_func = NULL;
 		data.value = NULL;
+		/*
 		printf("--> op_func: %s\n", data.op_func);
 		printf("--> value: %s\n", data.value);
+		*/
 		return (data);
 	}
 	data.value = NULL;
 	token = strtok(NULL, " \n\t");
+	/*
 	printf("-------> token: %s\n", token);
+	*/
 	while (token != NULL)
 	{
 		if (strcmp(token,""))
@@ -42,7 +48,9 @@ content_v clean_spaces(char *line)
 		}
 		token = strtok(NULL, " \n\t");
 	}
+	/*
 	printf("--> op_func: %s\n", data.op_func);
 	printf("--> value: %s\n", data.value);
+	*/
 	return(data);
 }
