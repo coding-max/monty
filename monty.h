@@ -54,18 +54,29 @@ typedef struct stakit
 {
         int int_value;
         content_v data;
+        FILE *fp;
 } extern_var_t;
 extern extern_var_t ex;
 
 int main(int argc, char *argv[]);
 void read_file(FILE *fp);
-void (*get_function(char *op_function))(stack_t **, unsigned int);
+void execute_function(stack_t **stack);
 content_v clean_spaces(char *line);
 
 void monty_push(stack_t **top, unsigned int line_n);
 void monty_pall(stack_t **top, unsigned int line_n);
 void monty_pint(stack_t **top, unsigned int line_n);
 void monty_pop(stack_t **top, unsigned int line_n);
+void monty_swap(stack_t **top, unsigned int line_n);
+void monty_add(stack_t **top, unsigned int line_n);
+void monty_mul(stack_t **top_ptr, unsigned int line_n);
+void monty_nop(stack_t **top_ptr, unsigned int line_n);
+void monty_div(stack_t **top_ptr, unsigned int line_n);
+void monty_mod(stack_t **top_ptr, unsigned int line_n);
+
+
+
+void free_stack(stack_t *top_ptr);
 /*
 void monty_swap(stack_t **top, unsigned int line_n);
 */
