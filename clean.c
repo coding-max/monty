@@ -1,5 +1,20 @@
 #include "monty.h"
 
+size_t not_empty(char *line)
+{
+	size_t i;
+
+	for (i = 0; i < strlen(line); i ++)
+	{
+		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+			break;
+	}
+	if (i == strlen(line))
+		return (0); /* empty */
+	return (1); /* not empty */
+}
+
+
 content_v clean_spaces(char *line)
 {
 	content_v data;

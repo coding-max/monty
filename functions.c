@@ -13,6 +13,7 @@ void monty_push(stack_t **top_ptr, unsigned int line_n)
 	if (!ex.data.value)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_n);
+		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
@@ -23,6 +24,7 @@ void monty_push(stack_t **top_ptr, unsigned int line_n)
 	{
 		/*free function*/
 		fprintf(stderr, "Error: malloc failed\n");
+		free(ex.line);
 		fclose(ex.fp); 
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
@@ -72,6 +74,7 @@ void monty_pint(stack_t **top_ptr, unsigned int line_n)
 	if (!(*top_ptr))
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line_n);
+		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
@@ -92,6 +95,7 @@ void monty_pop(stack_t **top_ptr, unsigned int line_n)
     if (!popped)
 	{
 		fprintf(stderr, "L%u: can't pop, stack empty\n", line_n);
+		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
@@ -115,6 +119,7 @@ void monty_swap(stack_t **top_ptr, unsigned int line_n)
 	if (!last)
 	{
 		fprintf(stderr, "L%u: can't swap, stack empty\n", line_n);
+		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
@@ -133,6 +138,7 @@ void monty_add(stack_t **top_ptr, unsigned int line_n)
 	if (!last)
 	{
 		fprintf(stderr, "L%u: can't add, stack empty\n", line_n);
+		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
@@ -154,6 +160,7 @@ void monty_mul(stack_t **top_ptr, unsigned int line_n)
 	if (!last)
 	{
 		fprintf(stderr, "L%u: can't mul, stack empty\n", line_n);
+		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
@@ -180,6 +187,7 @@ void monty_div(stack_t **top_ptr, unsigned int line_n)
 	if (!last)
 	{
 		fprintf(stderr,"L%u: can't div, stack empty\n", line_n);
+		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
@@ -189,6 +197,7 @@ void monty_div(stack_t **top_ptr, unsigned int line_n)
 	else
 	{
 		fprintf(stderr,"L%u: division by zero\n", line_n);
+		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
@@ -206,6 +215,7 @@ void monty_mod(stack_t **top_ptr, unsigned int line_n)
 	if (!last)
 	{
 		printf("L%u: can't mod, stack empty\n", line_n);
+		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
@@ -215,6 +225,7 @@ void monty_mod(stack_t **top_ptr, unsigned int line_n)
 	else
 	{
 		fprintf(stderr,"L%u: division by zero\n", line_n);
+		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);

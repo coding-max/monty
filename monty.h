@@ -62,6 +62,7 @@ extern extern_var_t ex;
 int main(int argc, char *argv[]);
 void read_file(FILE *fp);
 void execute_function(stack_t **stack);
+size_t not_empty(char *line);
 content_v clean_spaces(char *line);
 
 void monty_push(stack_t **top, unsigned int line_n);

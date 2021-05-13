@@ -55,14 +55,17 @@ void read_file(FILE *fp)
 	i = 0;
 	while (getline(&line, &len, fp) != -1)
 	{
-		ex.data = clean_spaces(line);
-		if (ex.data.value != NULL)
+		if (not_empty(line))
 		{
-			ex.int_value = atoi(ex.data.value);
+			ex.data = clean_spaces(line);
+			if (ex.data.value != NULL)
+			{
+				ex.int_value = atoi(ex.data.value);
+			}
+			ex.data.line_n = i;
+			ex.line = line;
+			execute_function(&top_ptr);
 		}
-		ex.data.line_n = i;
-		ex.line = line;
-		execute_function(&top_ptr);
 		i++;
 	}
 	free(line);
