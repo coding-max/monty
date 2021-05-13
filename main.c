@@ -61,6 +61,7 @@ void read_file(FILE *fp)
 			ex.int_value = atoi(ex.data.value);
 		}
 		ex.data.line_n = i;
+		ex.line = line;
 		execute_function(&top_ptr);
 		i++;
 	}
@@ -93,6 +94,7 @@ void execute_function(stack_t **stack)
 	if (!functions[i].opcode)
 	{
 		fprintf(stderr, "L%d: unknown instruction %s\n", ex.data.line_n, ex.data.op_func);
+		free(ex.line);
 		fclose(ex.fp); 
 		free_stack(*stack);
 		exit(EXIT_FAILURE);

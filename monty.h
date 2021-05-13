@@ -55,6 +55,7 @@ typedef struct stakit
         int int_value;
         content_v data;
         FILE *fp;
+        char *line;
 } extern_var_t;
 extern extern_var_t ex;
 
