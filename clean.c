@@ -1,6 +1,5 @@
 #include "monty.h"
 
-
 /**
  * not_empty - honestly, idk.
  * @line: idk.
@@ -15,11 +14,10 @@ size_t not_empty(char *line)
 		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
 			break;
 	}
-	if (i == strlen(line))
+	if (i == strlen(line) || line[i] == '#')
 		return (0); /* empty */
 	return (1); /* not empty */
 }
-
 
 /**
  * clean_spaces - honestly, idk.
