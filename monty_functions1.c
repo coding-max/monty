@@ -96,7 +96,7 @@ void monty_pop(stack_t **top_ptr, unsigned int line_n)
 
 	if (!top_ptr || !*top_ptr)
 	{
-		fprintf(stderr, "L%u: can't pop, stack empty\n", line_n);
+		fprintf(stderr, "L%u: can't pop an empty stack\n", line_n);
 		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
@@ -126,7 +126,7 @@ void monty_swap(stack_t **top_ptr, unsigned int line_n)
 
 	if (!last)
 	{
-		fprintf(stderr, "L%u: can't swap, stack empty\n", line_n);
+		fprintf(stderr, "L%u: can't swap, stack too short\n", line_n);
 		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
