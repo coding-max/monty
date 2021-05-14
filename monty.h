@@ -16,9 +16,9 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
 /**
@@ -31,31 +31,39 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 /**
- * struct  - opcode and its function
- * @opcode: the opcode
- * @f: function to handle the opcode
- *
+ * struct content  - opcode and its function
+ * @op_func: the opcode
+ * @value: function to handle the opcode
+ * @line_n: number of the line
  * Description: opcode and its function
  * for stack, queues, LIFO, FIFO Holberton project
  */
 typedef struct content
 {
-        char *op_func;
-        char *value;
-        int line_n;
+	char *op_func;
+	char *value;
+	int line_n;
 } content_v;
 
+/**
+ * struct stakit  - opcode and its function
+ * @int_value: idk.
+ * @data: idk.
+ * @fp: idk.
+ * @line: idk.
+ * Description: honestly, idk.
+ */
 typedef struct stakit
 {
-        int int_value;
-        content_v data;
-        FILE *fp;
-        char *line;
+	int int_value;
+	content_v data;
+	FILE *fp;
+	char *line;
 } extern_var_t;
 extern extern_var_t ex;
 
@@ -77,8 +85,5 @@ void monty_nop(stack_t **top_ptr, unsigned int line_n);
 void monty_div(stack_t **top_ptr, unsigned int line_n);
 void monty_mod(stack_t **top_ptr, unsigned int line_n);
 
-
-
 void free_stack(stack_t *top_ptr);
-
 #endif

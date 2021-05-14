@@ -40,7 +40,7 @@ content_v clean_spaces(char *line)
 		if (strcmp(token, ""))
 		{
 			data.op_func = token;
-			break;   
+			break;
 		}
 		token = strtok(NULL, " \n\t");
 	}

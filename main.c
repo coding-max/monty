@@ -4,6 +4,8 @@ extern_var_t ex;
 
 /**
  * main - honestly, idk.
+ * @argc: idk.
+ * @argv: idk.
  * Return: less find out god.
  */
 int main(int argc, char *argv[])
@@ -38,6 +40,7 @@ void read_file(FILE *fp)
 	size_t len = 0;
 	int i;
 	stack_t *top_ptr = NULL;
+
 	ex.fp = fp;
 
 	/* get new line from fp's buffer */
@@ -69,9 +72,9 @@ void read_file(FILE *fp)
 void execute_function(stack_t **stack)
 {
 	instruction_t functions[] = {
-		{"push"	, monty_push}, {"pall"	, monty_pall}, {"pint"	, monty_pint},
-		{"pop"	, monty_pop}, {"swap"	, monty_swap}, {"add", monty_add},
-		{"nop", monty_nop}, {"div",monty_div}, {NULL, NULL}
+		{"push", monty_push}, {"pall", monty_pall}, {"pint", monty_pint},
+		{"pop", monty_pop}, {"swap", monty_swap}, {"add", monty_add},
+		{"nop", monty_nop}, {"div", monty_div}, {NULL, NULL}
 	};
 	int i;
 
@@ -85,9 +88,11 @@ void execute_function(stack_t **stack)
 	}
 	if (!functions[i].opcode)
 	{
-		fprintf(stderr, "L%d: unknown instruction %s\n", ex.data.line_n, ex.data.op_func);
+
+		fprintf(stderr, "L%d: unknown instruction", ex.data.line_n);
+		fprintf(stderr, " %s\n", ex.data.op_func);
 		free(ex.line);
-		fclose(ex.fp); 
+		fclose(ex.fp);
 		free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}

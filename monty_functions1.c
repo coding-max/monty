@@ -9,7 +9,7 @@ void monty_push(stack_t **top_ptr, unsigned int line_n)
 {
 	/* temporal, esto en realidad viene en la variable externa */
 	stack_t *new_node, *top = *top_ptr;
-	
+
 	if (!ex.data.value)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_n);
@@ -25,7 +25,7 @@ void monty_push(stack_t **top_ptr, unsigned int line_n)
 		/*free function*/
 		fprintf(stderr, "Error: malloc failed\n");
 		free(ex.line);
-		fclose(ex.fp); 
+		fclose(ex.fp);
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
 	}
@@ -37,7 +37,7 @@ void monty_push(stack_t **top_ptr, unsigned int line_n)
 		new_node->prev = NULL;
 		*top_ptr = new_node;
 	}
-	else 
+	else
 	{
 		new_node->next = NULL;
 		new_node->prev = top;
@@ -47,7 +47,8 @@ void monty_push(stack_t **top_ptr, unsigned int line_n)
 }
 
 /**
- * monty_pall - prints all the values on the stack, starting from the top of the stack.
+ * monty_pall - prints all the values on the stack,
+ * starting from the top of the stack.
  * @top_ptr: idk.
  * @line_n: idk.
  */
@@ -55,7 +56,7 @@ void monty_pall(stack_t **top_ptr, unsigned int line_n)
 {
 	/* temporal, esto en realidad viene en la variable externa */
 	stack_t *aux = *top_ptr;
-	
+
 	(void)line_n;
 	while (aux)
 	{
@@ -65,7 +66,8 @@ void monty_pall(stack_t **top_ptr, unsigned int line_n)
 }
 
 /**
- * monty_pint - prints the value at the top of the stack, followed by a new line.
+ * monty_pint - prints the value at the top of the stack,
+ * followed by a new line.
  * @top_ptr: idk.
  * @line_n: idk.
  */
@@ -92,7 +94,7 @@ void monty_pop(stack_t **top_ptr, unsigned int line_n)
 {
 	stack_t *popped = *top_ptr;
 
-    if (!popped)
+	if (!popped)
 	{
 		fprintf(stderr, "L%u: can't pop, stack empty\n", line_n);
 		free(ex.line);
@@ -108,7 +110,7 @@ void monty_pop(stack_t **top_ptr, unsigned int line_n)
 	else
 		*top_ptr = NULL;
 
-    free(popped);
+	free(popped);
 }
 
 /**
@@ -129,7 +131,7 @@ void monty_swap(stack_t **top_ptr, unsigned int line_n)
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
 	}
-	
+
 	aux_int = last->prev->n;
 	last->prev->n = last->n;
 	last->n = aux_int;
