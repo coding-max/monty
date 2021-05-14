@@ -63,9 +63,11 @@ content_v clean_spaces(char *line)
 						break;
 			}
 			if (i == strlen(token))
-				if (strcmp(token,"-0"))
+			{
+				if (!strcmp(token,"-0"))
 					data.value = 0;
 				data.value = token;
+			}
 		}
 		token = strtok(NULL, " \n\t");
 	}
