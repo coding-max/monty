@@ -62,8 +62,8 @@ void read_file(FILE *fp)
 }
 
 /**
- * get_function - honestly, idk.
- * @op_function: idk.
+ * execute_function - honestly, idk.
+ * @stack: idk.
  * Return: less find out god.
  */
 void execute_function(stack_t **stack)
@@ -92,7 +92,11 @@ void execute_function(stack_t **stack)
 		exit(EXIT_FAILURE);
 	}
 }
-
+/**
+ * free_stack - honestly, idk.
+ * @top_ptr: idk.
+ * Return: less find out god.
+ */
 void free_stack(stack_t *top_ptr)
 {
 	stack_t *last;

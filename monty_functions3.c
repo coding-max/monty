@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * monty_push - pushes an element to the stack.
+ * monty_nop - nothing to do here.
  * @top_ptr: idk.
  * @line_n: idk.
  */
