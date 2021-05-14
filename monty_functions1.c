@@ -94,7 +94,7 @@ void monty_pop(stack_t **top_ptr, unsigned int line_n)
 {
 	stack_t *popped = *top_ptr;
 
-	if (!popped)
+	if (!top_ptr || !*top_ptr)
 	{
 		fprintf(stderr, "L%u: can't pop, stack empty\n", line_n);
 		free(ex.line);
