@@ -41,7 +41,7 @@ void read_file(FILE *fp)
 	ex.fp = fp;
 
 	/* get new line from fp's buffer */
-	i = 0;
+	i = 1;
 	while (getline(&line, &len, fp) != -1)
 	{
 		if (not_empty(line))
