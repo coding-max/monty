@@ -21,14 +21,22 @@ void monty_pchar(stack_t **top_ptr, unsigned int line_n)
 {
 	if (!(*top_ptr))
 	{
-		fprintf(stderr, "L%u: can't pint, stack empty\n", line_n);
+		fprintf(stderr, "L%u: can't pchar, stack empty\n", line_n);
 		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
 	}
-	else
+	if (isascii((*top_ptr)->n))
 		printf("%c\n", (char)((*top_ptr)->n));
+	else
+	{
+		fprintf(stderr, "L%u: can't pchar, value out of range\n", line_n);
+		free(ex.line);
+		fclose(ex.fp);
+		free_stack(*top_ptr);
+		exit(EXIT_FAILURE);
+	}
 }
 
 /**
@@ -44,7 +52,10 @@ void monty_pstr(stack_t **top_ptr, unsigned int line_n)
 	(void)line_n;
 
 	if (!top_ptr)
+	{
 		putchar(10);
+		return;
+	}
 	while (aux)
 	{
 		if (isascii(aux->n) || aux->n != 0)

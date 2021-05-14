@@ -76,7 +76,7 @@ void execute_function(stack_t **stack)
 		{"pop", monty_pop}, {"swap", monty_swap}, {"add", monty_add},
 		{"sub", monty_sub}, {"nop", monty_nop}, {"div", monty_div},
 		{"mul", monty_mul}, {"mod", monty_mod}, {"pchar", monty_pchar},
-		{NULL, NULL}
+		{"pstr", monty_pstr}, {NULL, NULL}
 	};
 	int i;
 
