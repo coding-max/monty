@@ -92,7 +92,7 @@ void monty_pint(stack_t **top_ptr, unsigned int line_n)
  */
 void monty_pop(stack_t **top_ptr, unsigned int line_n)
 {
-	stack_t *popped = *top_ptr;
+	stack_t *popped = NULL;
 
 	if (!top_ptr || !*top_ptr)
 	{
@@ -102,6 +102,7 @@ void monty_pop(stack_t **top_ptr, unsigned int line_n)
 		free_stack(*top_ptr);
 		exit(EXIT_FAILURE);
 	}
+	popped = *top_ptr;
 	if (popped->prev != NULL)
 	{
 		popped->prev->next = NULL;
