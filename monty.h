@@ -84,6 +84,7 @@ void monty_mul(stack_t **top_ptr, unsigned int line_n);
 void monty_nop(stack_t **top_ptr, unsigned int line_n);
 void monty_div(stack_t **top_ptr, unsigned int line_n);
 void monty_mod(stack_t **top_ptr, unsigned int line_n);
+void monty_pchar(stack_t **top_ptr, unsigned int line_n);
 
 void free_stack(stack_t *top_ptr);
 #endif
