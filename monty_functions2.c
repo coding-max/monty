@@ -111,7 +111,7 @@ void monty_mod(stack_t **top_ptr, unsigned int line_n)
 
 	if (!last || !last->prev)
 	{
-		printf("L%u: can't mod, stack too short\n", line_n);
+		fprintf(stderr, "L%u: can't mod, stack too short\n", line_n);
 		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
