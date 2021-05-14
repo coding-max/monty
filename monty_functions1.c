@@ -92,9 +92,9 @@ void monty_pint(stack_t **top_ptr, unsigned int line_n)
  */
 void monty_pop(stack_t **top_ptr, unsigned int line_n)
 {
-	stack_t *popped = NULL;
+	stack_t *popped = *top_ptr;
 
-	if (!top_ptr || !*top_ptr)
+	if (!popped)
 	{
 		fprintf(stderr, "L%u: can't pop an empty stack\n", line_n);
 		free(ex.line);
@@ -124,7 +124,7 @@ void monty_swap(stack_t **top_ptr, unsigned int line_n)
 	stack_t *last = *top_ptr;
 	int aux_int = 0;
 
-	if (!last)
+	if (!last || !last->prev)
 	{
 		fprintf(stderr, "L%u: can't swap, stack too short\n", line_n);
 		free(ex.line);
