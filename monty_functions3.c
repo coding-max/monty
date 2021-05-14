@@ -51,7 +51,7 @@ void monty_pstr(stack_t **top_ptr, unsigned int line_n)
 
 	(void)line_n;
 
-	if (!aux)
+	if (!top_ptr || !(*top_ptr))
 	{
 		putchar(10);
 		return;
