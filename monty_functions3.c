@@ -58,7 +58,7 @@ void monty_pstr(stack_t **top_ptr, unsigned int line_n)
 	}
 	while (aux)
 	{
-		if (isascii(aux->n) || aux->n != 0)
+		if (isascii(aux->n) && aux->n != 0)
 		{
 			printf("%c", (char)(aux->n));
 		}
