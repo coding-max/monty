@@ -9,9 +9,9 @@ void monty_add(stack_t **top_ptr, unsigned int line_n)
 {
 	stack_t *last = *top_ptr;
 
-	if (!last)
+	if (!last || !last->prev)
 	{
-		fprintf(stderr, "L%u: can't add, stack empty\n", line_n);
+		fprintf(stderr, "L%u: can't add, stack too short\n", line_n);
 		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
@@ -32,9 +32,9 @@ void monty_sub(stack_t **top_ptr, unsigned int line_n)
 {
 	stack_t *last = *top_ptr;
 
-	if (!last)
+	if (!last || !last->prev)
 	{
-		fprintf(stderr, "L%u: can't add, stack empty\n", line_n);
+		fprintf(stderr, "L%u: can't sub, stack too short\n", line_n);
 		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
@@ -55,9 +55,9 @@ void monty_div(stack_t **top_ptr, unsigned int line_n)
 {
 	stack_t *last = *top_ptr;
 
-	if (!last)
+	if (!last || !last->prev)
 	{
-		fprintf(stderr, "L%u: can't div, stack empty\n", line_n);
+		fprintf(stderr, "L%u: can't div, stack too short\n", line_n);
 		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
@@ -86,9 +86,9 @@ void monty_mul(stack_t **top_ptr, unsigned int line_n)
 {
 	stack_t *last = *top_ptr;
 
-	if (!last)
+	if (!last || !last->prev)
 	{
-		fprintf(stderr, "L%u: can't mul, stack empty\n", line_n);
+		fprintf(stderr, "L%u: can't mul, stack too short\n", line_n);
 		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
@@ -109,9 +109,9 @@ void monty_mod(stack_t **top_ptr, unsigned int line_n)
 {
 	stack_t *last = *top_ptr;
 
-	if (!last)
+	if (!last || !last->prev)
 	{
-		printf("L%u: can't mod, stack empty\n", line_n);
+		printf("L%u: can't mod, stack too short\n", line_n);
 		free(ex.line);
 		fclose(ex.fp);
 		free_stack(*top_ptr);
